@@ -2,13 +2,13 @@ function [KH, HP, num_kernel] = preprocess(fea, num_cluster, dim_c)
 num_view = length(fea);
 num_sample = size(fea{1}, 1);
 
-% normailize data
+% normalize data
 fea_normalized = cell(num_view, 1);
 for v = 1 : num_view
     fea_normalized{v} = normalize_fea(fea{v});
 end
 
-% construct kernelss
+% construct kernels
 num_kernel = num_view * 5;
 KH = zeros(num_sample, num_sample, num_kernel);
 for v = 1 : num_view
@@ -29,7 +29,7 @@ for v = 1 : num_view
     KH( : , : , 5 + (v - 1) * 5) = construct_kernel(fea_normalized{v}, [], options);
 end
 
-% normailize kernels
+% normalize kernels
 KH = knorm(kcenter(KH));
 
 
